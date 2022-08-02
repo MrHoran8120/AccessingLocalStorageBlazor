@@ -1,0 +1,70 @@
+﻿@page  "/"
+@using Blazored.LocalStorage
+@inject Blazored.LocalStorage.ISyncLocalStorageService  localStorage
+
+<a href="HowToPage" class="helpBut" @onclick="handleHelp">HELP</a>
+
+<h1>@test Save and Load Razor Demo</h1>
+<br>
+<p>
+    Here we save the file    
+    <button @onclick="UpdateLocalStorage">save file</button>
+</p>
+<br />
+<p>
+    Here we load the file    
+    <button @onclick="GetLocalStorage">load file</button>
+</p>
+
+<br />
+
+
+<br />
+<br />
+<p>We Can enter text here to save</p>
+<textarea cols="50" rows="3" >@noteContent</textarea>
+<br /><br />
+@noteContent is here
+@status
+@code{
+
+
+    const string noteKey = "note";
+    string noteContent="";
+    string status = "init";
+    string test = "---";
+    private ISyncLocalStorageService LocalStorage;
+
+
+    public  void UpdateLocalStorage()
+    {
+        status = noteContent;
+        try
+        {
+            localStorage.SetItem("note", "Testting");
+        }
+        catch (ArgumentException e)
+        {
+            status = "error";
+        }
+        status = "finishing update";
+    }
+
+    public  void ClearLocalStorage()
+    {
+        noteContent = "";
+        localStorage.Clear();
+    }
+
+    public void GetLocalStorage()
+    {
+        status = "loading1";
+        noteContent = localStorage.GetItem<string>(noteKey);
+        status = "completed loading";
+    }
+
+    private void handleHelp()
+    {
+        
+    }
+}

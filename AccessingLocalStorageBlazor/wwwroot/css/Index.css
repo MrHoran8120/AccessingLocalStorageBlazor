@@ -1,0 +1,19 @@
+﻿:root {
+    --myColor : lightblue;
+}
+
+body {
+    background-color : var(--myColor);
+    padding : 10px;
+}
+
+.helpBut {
+    position : fixed;
+    top : 0;
+    right :0 ;
+    width :100px;
+    height : 80px;
+    background-color : red;
+    text-align : center;
+
+}
